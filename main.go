@@ -35,9 +35,9 @@ func main() {
 		fx.Invoke(
 			func(params struct {
 				fx.In
-				Lifecycle      fx.Lifecycle
-				Apps           []*fx.App `group:"Apps"`
-				Logger         *log2.SubSystemLogger
+				Lifecycle fx.Lifecycle
+				Apps      []*fx.App `group:"Apps"`
+				Logger    *log2.SubSystemLogger
 				//RunTimeManager *app2.RunTimeManager
 			}) {
 
