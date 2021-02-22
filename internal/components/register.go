@@ -25,7 +25,6 @@ func RegisterEchoServiceListener() fx.Option {
 				Target: netListener.NewNetListenApp(
 					"EchoServerConnectionManager(Empty)",
 					"tcp4://127.0.0.1:3000",
-					impl.TransportFactoryEmptyName,
 					impl.CreateEmptyStack,
 					CreateClientHandlerFactoryName),
 			}),
@@ -35,7 +34,6 @@ func RegisterEchoServiceListener() fx.Option {
 				Target: netListener.NewNetListenApp(
 					"EchoServerConnectionManager(Compressed)",
 					"tcp4://127.0.0.1:3001",
-					impl.TransportFactoryCompressedName,
 					impl.CreateCompressedStack,
 					CreateClientHandlerFactoryName),
 			}),
@@ -45,7 +43,6 @@ func RegisterEchoServiceListener() fx.Option {
 				Target: netListener.NewNetListenApp(
 					"EchoServerConnectionManager(UnCompressed)",
 					"tcp4://127.0.0.1:3002",
-					impl.TransportFactoryUnCompressedName,
 					impl.CreateUnCompressedStack,
 					CreateClientHandlerFactoryName),
 			}),
