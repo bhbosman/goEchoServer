@@ -9,14 +9,15 @@ import (
 
 func RegisterEchoServiceListener() fx.Option {
 	const CreateClientHandlerFactoryName = "EchoServerConnectionReactorFactory"
+	cfr := &connectionReactorFactory{
+		name: CreateClientHandlerFactoryName,
+	}
 	return fx.Options(
 		fx.Provide(
 			fx.Annotated{
 				Group: impl.ConnectionReactorFactoryConst,
 				Target: func() (intf.IConnectionReactorFactory, error) {
-					return &connectionReactorFactory{
-						name: CreateClientHandlerFactoryName,
-					}, nil
+					return cfr, nil
 				},
 			}),
 		fx.Provide(
@@ -26,7 +27,8 @@ func RegisterEchoServiceListener() fx.Option {
 					"EchoServerConnectionManager(Empty)",
 					"tcp4://127.0.0.1:3000",
 					impl.CreateEmptyStack,
-					CreateClientHandlerFactoryName),
+					CreateClientHandlerFactoryName,
+					cfr),
 			}),
 		fx.Provide(
 			fx.Annotated{
@@ -35,7 +37,8 @@ func RegisterEchoServiceListener() fx.Option {
 					"EchoServerConnectionManager(Compressed)",
 					"tcp4://127.0.0.1:3001",
 					impl.CreateCompressedStack,
-					CreateClientHandlerFactoryName),
+					CreateClientHandlerFactoryName,
+					cfr),
 			}),
 		fx.Provide(
 			fx.Annotated{
@@ -44,7 +47,8 @@ func RegisterEchoServiceListener() fx.Option {
 					"EchoServerConnectionManager(UnCompressed)",
 					"tcp4://127.0.0.1:3002",
 					impl.CreateUnCompressedStack,
-					CreateClientHandlerFactoryName),
+					CreateClientHandlerFactoryName,
+					cfr),
 			}),
 	)
 }
