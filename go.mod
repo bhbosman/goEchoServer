@@ -10,6 +10,7 @@ require (
 	github.com/bhbosman/goprotoextra v0.0.1
 	github.com/reactivex/rxgo/v2 v2.1.0
 	go.uber.org/fx v1.13.1
+	github.com/cskr/pubsub v1.0.2
 )
 
 replace (

@@ -2,24 +2,15 @@ package Server
 
 import (
 	"github.com/bhbosman/gocomms/impl"
-	"github.com/bhbosman/gocomms/intf"
 	"github.com/bhbosman/gocomms/netListener"
 	"go.uber.org/fx"
 )
 
 func RegisterEchoServiceListener() fx.Option {
-	const CreateClientHandlerFactoryName = "EchoServerConnectionReactorFactory"
 	cfr := &connectionReactorFactory{
-		name: CreateClientHandlerFactoryName,
+		name: "EchoServerConnectionReactorFactory",
 	}
 	return fx.Options(
-		fx.Provide(
-			fx.Annotated{
-				Group: impl.ConnectionReactorFactoryConst,
-				Target: func() (intf.IConnectionReactorFactory, error) {
-					return cfr, nil
-				},
-			}),
 		fx.Provide(
 			fx.Annotated{
 				Group: "Apps",
@@ -27,7 +18,6 @@ func RegisterEchoServiceListener() fx.Option {
 					"EchoServerConnectionManager(Empty)",
 					"tcp4://127.0.0.1:3000",
 					impl.CreateEmptyStack,
-					CreateClientHandlerFactoryName,
 					cfr),
 			}),
 		fx.Provide(
@@ -37,7 +27,6 @@ func RegisterEchoServiceListener() fx.Option {
 					"EchoServerConnectionManager(Compressed)",
 					"tcp4://127.0.0.1:3001",
 					impl.CreateCompressedStack,
-					CreateClientHandlerFactoryName,
 					cfr),
 			}),
 		fx.Provide(
@@ -47,7 +36,6 @@ func RegisterEchoServiceListener() fx.Option {
 					"EchoServerConnectionManager(UnCompressed)",
 					"tcp4://127.0.0.1:3002",
 					impl.CreateUnCompressedStack,
-					CreateClientHandlerFactoryName,
 					cfr),
 			}),
 	)
